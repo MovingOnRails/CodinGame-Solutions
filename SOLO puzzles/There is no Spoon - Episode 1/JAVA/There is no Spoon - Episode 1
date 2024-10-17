@@ -1,0 +1,70 @@
+import java.util.*;
+import java.io.*;
+import java.math.*;
+
+/**
+ * Don't let the machines win. You are humanity's last hope...
+ **/
+class Player {
+
+    public static void main(String args[]) {
+        Scanner in = new Scanner(System.in);
+        int width = in.nextInt(); // the number of cells on the X axis
+        int height = in.nextInt(); // the number of cells on the Y axis
+        if (in.hasNextLine()) {
+            in.nextLine();
+        }
+        String[] grid = new String[height];
+        for (int i = 0; i < height; i++) {
+            String line = in.nextLine(); // width characters, each either 0 or .
+            grid[i] = line;
+        }
+
+        int X0 = -1;
+        int Y0 = -1;
+        int XR = -1;
+        int YR = -1;
+        int XD = -1;
+        int YD = -1;
+        for(int i = 0;i<height;i++){
+            for(int j = 0;j<width;j++){
+
+                String current_line = grid[i];
+                char current_node = current_line.charAt(j);
+                if(current_node == '0'){
+                    X0 = j;
+                    Y0 = i;
+
+                    XR = -1;
+                    YR = -1;
+                    for(int x = j+1;x<width;x++){
+                        char right_node = grid[i].charAt(x);
+                        if(right_node == '0'){
+                            XR = x;
+                            YR = i;
+                            break;
+                        }
+                    }
+
+                    XD = -1;
+                    YD = -1;
+                    for(int y = i+1;y<height;y++){
+                        char bottom_node = grid[y].charAt(j);
+                        if(bottom_node == '0'){
+                            XD = j;
+                            YD = y;
+                            break;
+                        }
+                    }
+
+                    System.out.println(X0 + " " + Y0 + " " + XR + " " + YR + " " + XD + " " + YD);
+                }
+            }
+        }
+        // Write an action using System.out.println()
+        // To debug: System.err.println("Debug messages...");
+
+
+        // Three coordinates: a node, its right neighbor, its bottom neighbor
+    }
+}

@@ -1,0 +1,81 @@
+import java.util.*;
+import java.io.*;
+import java.math.*;
+
+/**
+ * Auto-generated code below aims at helping you parse
+ * the standard input according to the problem statement.
+ **/
+class Player {
+
+    public static void main(String args[]) {
+        Scanner in = new Scanner(System.in);
+        int W = in.nextInt(); // width of the building.
+        int H = in.nextInt(); // height of the building.
+        int N = in.nextInt(); // maximum number of turns before game over.
+        int X0 = in.nextInt();
+        int Y0 = in.nextInt();
+
+        int low_X = 0;
+        int high_X = W-1;
+        int low_Y = 0;
+        int high_Y = H-1;
+        double sum_interval_X = 0;
+        double sum_interval_Y = 0;
+        // game loop
+        while (true) {
+            String bombDir = in.next(); // the direction of the bombs from batman's current location (U, UR, R, DR, D, DL, L or UL)
+
+            switch(bombDir){
+                case "UR":
+                    low_X = X0;
+                    sum_interval_X = (double) (high_X - low_X)/2;
+                    X0 = X0 + (int) Math.ceil(sum_interval_X);
+                case "U":
+                    high_Y = Y0;
+                    sum_interval_Y = (double) (high_Y - low_Y)/2;
+                    Y0 = Y0 - (int) Math.ceil(sum_interval_Y);
+                    break;
+                case "R":
+                    low_X = X0;
+                    sum_interval_X = (double) (high_X - low_X)/2;
+                    X0 = X0 + (int) Math.ceil(sum_interval_X);
+                    break;
+                case "DR":
+                    low_X = X0;
+                    sum_interval_X = (double) (high_X - low_X)/2;
+                    X0 = X0 + (int) Math.ceil(sum_interval_X);
+                case "D":
+                    low_Y = Y0;
+                    sum_interval_Y = (double) (high_Y - low_Y)/2;
+                    Y0 = Y0 + (int) Math.ceil(sum_interval_Y);
+                    break;
+                case "DL":
+                    low_Y = Y0;
+                    sum_interval_Y = (double) (high_Y - low_Y)/2;
+                    Y0 = Y0 + (int) Math.ceil(sum_interval_Y);
+                case "L":
+                    high_X = X0;
+                    sum_interval_X = (double) (high_X - low_X)/2;
+                    X0 = X0 - (int) Math.ceil(sum_interval_X);
+                    break;
+                case "UL":
+                    high_Y = Y0;
+                    high_X = X0;
+                    sum_interval_X = (double) (high_X - low_X)/2;
+                    sum_interval_Y = (double) (high_Y - low_Y)/2;
+                    Y0 = Y0 - (int) Math.ceil(sum_interval_Y);
+                    X0 = X0 - (int) Math.ceil(sum_interval_X);
+                    break;
+            }
+            // Write an action using System.out.println()
+            // To debug: System.err.println("Debug messages...");
+
+
+            System.err.println("Width: "+ W);
+            System.err.println("Height: "+ H);
+            // the location of the next window Batman should jump to.
+            System.out.println(X0 + " "+ Y0);
+        }
+    }
+}
