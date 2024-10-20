@@ -1,0 +1,111 @@
+import java.util.*;
+import java.io.*;
+import java.math.*;
+
+/**
+ * Auto-generated code below aims at helping you parse
+ * the standard input according to the problem statement.
+ **/
+
+class Node {
+    int number;
+    List<Integer> links = new ArrayList<>();
+    
+    public Node(int n){
+        this.number = n;
+    }
+
+    public void addLink(Integer node){
+        links.add(node);
+    }
+}
+
+class Player {
+
+    public static int get_unvisited_node_with_min_distance(int[] distances, boolean[] visited){
+            int undefined = distances.length+1;
+            int minimum_distance = Integer.MAX_VALUE;
+            int selected_node = undefined;
+            for(int i =0;i<visited.length;i++){
+                if(!visited[i]){
+                    if(distances[i] < minimum_distance){
+                        minimum_distance = distances[i];
+                        selected_node = i;
+                    }
+                }
+            }
+            return selected_node;
+    }
+
+    public static void main(String args[]) {
+        Scanner in = new Scanner(System.in);
+        int N = in.nextInt(); // the total number of nodes in the level, including the gateways
+        int L = in.nextInt(); // the number of links
+        int E = in.nextInt(); // the number of exit gateways
+
+        Node[] nodes = new Node[N];
+        for(int i = 0;i<N;i++){
+            nodes[i] = new Node(i);
+        }
+
+        for (int i = 0; i < L; i++) {
+            int N1 = in.nextInt(); // N1 and N2 defines a link between these nodes
+            int N2 = in.nextInt();
+            nodes[N1].addLink(N2);
+            nodes[N2].addLink(N1);
+        }
+
+        List<Integer> gateways = new ArrayList<>();
+        for (int i = 0; i < E; i++) {
+            int EI = in.nextInt(); // the index of a gateway node
+            gateways.add(EI);
+        }
+        // Solution idea:
+        /* The idea is to get the distance of every path from the bobnet agent to the gateway each turn
+        and sever the first link of the smallest path to the bobnet agent. For that, I will use Djkstra's
+        shortest path algorithm */
+        /* Turns out that there are multiple gateways and I have to check every path for every gateway, 
+        and block the shortest between them */
+        int[] distances = new int[N];
+        int[] prev = new int[N];
+        boolean[] visited = new boolean[N];
+
+        int undefined = N+1;
+        
+        while (true) {
+            int SI = in.nextInt(); // The index of the node on which the Bobnet agent is positioned this turn
+
+            for(int i =0;i<N;i++){
+                distances[i] = Integer.MAX_VALUE;
+                prev[i] = undefined; // N+1 as undefined
+                visited[i] = false;
+            }
+            distances[SI] = 0;
+
+            int link_first =0;
+            int link_second =0;
+            for(int i =0;i<N;i++){
+                int selected_node_number = get_unvisited_node_with_min_distance(distances, visited);
+                visited[selected_node_number] = true;
+                
+                if(selected_node_number ==  EI){
+                    link_first = selected_node_number;
+                    link_second = prev[selected_node_number];
+                    break;
+                }
+                // TODO: we can terminate the search here if the selected node is the gateway
+                Node current_node = nodes[selected_node_number];
+                for(Integer neighbor : current_node.links){
+                    int alt = distances[current_node.number] + 1;
+                    if(alt < distances[neighbor]){
+                        distances[neighbor] = alt;
+                        prev[neighbor] = current_node.number;
+                    }
+                }
+            }
+
+            // Example: 0 1 are the indices of the nodes you wish to sever the link between
+            System.out.println(link_first + " " + link_second);
+        }
+    }
+}
