@@ -82,18 +82,10 @@ class Player {
             }
             distances[SI] = 0;
 
-            int link_first =0;
-            int link_second =0;
             for(int i =0;i<N;i++){
                 int selected_node_number = get_unvisited_node_with_min_distance(distances, visited);
                 visited[selected_node_number] = true;
                 
-                if(selected_node_number ==  EI){
-                    link_first = selected_node_number;
-                    link_second = prev[selected_node_number];
-                    break;
-                }
-                // TODO: we can terminate the search here if the selected node is the gateway
                 Node current_node = nodes[selected_node_number];
                 for(Integer neighbor : current_node.links){
                     int alt = distances[current_node.number] + 1;
@@ -103,9 +95,19 @@ class Player {
                     }
                 }
             }
+            // Now distances and prev is all populated
 
+            // Check the min distance from all the gateways
+            int min_distance = Integer.MAX_VALUE;
+            int min_distance_gateway = gateways.get(0);
+            for(Integer gateway : gateways){
+                if(distances[gateway] < min_distance){
+                    min_distance = distances[gateway];
+                    min_distance_gateway = gateway;
+                }
+            }
             // Example: 0 1 are the indices of the nodes you wish to sever the link between
-            System.out.println(link_first + " " + link_second);
+            System.out.println(prev[min_distance_gateway] + " " + min_distance_gateway);
         }
     }
 }
