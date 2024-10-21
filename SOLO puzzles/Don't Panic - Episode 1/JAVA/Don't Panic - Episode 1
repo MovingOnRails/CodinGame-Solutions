@@ -19,12 +19,12 @@ class Access {
 class Player {
 
     public static void passOneTurn(Scanner in){
-            //System.err.println("PASS START");
+            System.err.println("PASS START");
             System.out.println("WAIT");
             int currentFloor = in.nextInt();
             int currentPos = in.nextInt();
             String direction = in.next();
-            //System.err.println("PASS END");
+            System.err.println("PASS END");
     }
 
     public static String accessRelativePositionFromLeadingClone(int currentPos, int currentAccessPos){
@@ -85,7 +85,7 @@ class Player {
                         System.err.println("WAIT");
                     } else {
                         System.err.println("action: BLOCK");
-                        passOneTurn(in);
+                        passOneTurn(in); // TODO replace this for the correct code
                         action = "BLOCK";
                         floorMarks[currentFloor] = true;
                         System.err.println("BLOCK");
