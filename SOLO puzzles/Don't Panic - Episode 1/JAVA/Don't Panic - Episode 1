@@ -1,0 +1,106 @@
+import java.util.*;
+import java.io.*;
+import java.math.*;
+
+/**
+ * Auto-generated code below aims at helping you parse
+ * the standard input according to the problem statement.
+ **/
+
+class Access {
+    int floor;
+    int pos;
+    boolean taken = false;
+    public Access(int f, int p){
+        this.floor = f;
+        this.pos = p;
+    }
+}
+class Player {
+
+    public static void passOneTurn(Scanner in){
+            //System.err.println("PASS START");
+            System.out.println("WAIT");
+            int currentFloor = in.nextInt();
+            int currentPos = in.nextInt();
+            String direction = in.next();
+            //System.err.println("PASS END");
+    }
+
+    public static String accessRelativePositionFromLeadingClone(int currentPos, int currentAccessPos){
+        if(currentPos < currentAccessPos){
+            return "RIGHT";
+        } else {
+            return "LEFT";
+        }
+    }
+
+    public static void main(String args[]) {
+        Scanner in = new Scanner(System.in);
+        int nbFloors = in.nextInt(); // number of floors
+        int width = in.nextInt(); // width of the area
+        int nbRounds = in.nextInt(); // maximum number of rounds
+        int exitFloor = in.nextInt(); // floor on which the exit is found
+        int exitPos = in.nextInt(); // position of the exit on its floor
+        int nbTotalClones = in.nextInt(); // number of generated clones
+        int nbAdditionalElevators = in.nextInt(); // ignore (always zero)
+        int nbElevators = in.nextInt(); // number of elevators
+
+        Access[] accesses = new Access[nbElevators+1];
+        for (int i = 0; i < nbElevators; i++) {
+            int elevatorFloor = in.nextInt(); // floor on which this elevator is found
+            int elevatorPos = in.nextInt(); // position of the elevator on its floor
+            Access elevator = new Access(elevatorFloor, elevatorPos);
+            accesses[elevatorFloor] = elevator;
+        }
+        Access exit = new Access(exitFloor, exitPos);
+        accesses[exitFloor] = exit;
+
+        // game loop
+        int currentFloor = 0;
+        boolean[] floorMarks = new boolean[nbFloors];
+        for(int i=0;i<floorMarks.length;i++){
+            floorMarks[i] = false;
+        }
+        int currentPos = 0;
+        String direction = "LEFT";
+        Access currentAccess = accesses[0];
+        String action = "WAIT";
+        while (true) {
+            currentFloor = in.nextInt(); // floor of the leading clone
+            currentPos = in.nextInt(); // position of the leading clone on its floor
+            direction = in.next(); // direction of the leading clone: LEFT or RIGHT
+
+            if(currentFloor != -1){ // When the clone is already in game, not spawning
+            
+                if(!floorMarks[currentFloor]){
+                    currentAccess = accesses[currentFloor];
+                    System.err.println("-----before check direction-----");
+                    System.err.println("direction: "+direction);  
+                    System.err.println("access relative position: "+accessRelativePositionFromLeadingClone(currentPos, currentAccess.pos));  
+                    if( direction.equals(accessRelativePositionFromLeadingClone(currentPos, currentAccess.pos)) ){ /*  clone is facing towards currentAccess */
+                        //Do nothing
+                        System.err.println("action: WAIT");
+                        action = "WAIT";
+                        System.err.println("WAIT");
+                    } else {
+                        System.err.println("action: BLOCK");
+                        passOneTurn(in);
+                        action = "BLOCK";
+                        floorMarks[currentFloor] = true;
+                        System.err.println("BLOCK");
+                        // Change direction
+                    }
+                } else {
+                    action = "WAIT";
+                }
+                // Write an action using System.out.println()
+                // To debug: System.err.println("Debug messages...");
+
+                System.out.println(action); // action: WAIT or BLOCK
+            } else { // If the clone is spawning
+                System.out.println("WAIT");
+            }
+        }
+    }
+}
