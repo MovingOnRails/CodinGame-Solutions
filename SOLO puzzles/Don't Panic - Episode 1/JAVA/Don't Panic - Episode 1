@@ -58,6 +58,7 @@ class Player {
 
         // game loop
         int currentFloor = 0;
+        int previousFloor = 0;
         boolean[] floorMarks = new boolean[nbFloors];
         for(int i=0;i<floorMarks.length;i++){
             floorMarks[i] = false;
@@ -67,35 +68,56 @@ class Player {
         Access currentAccess = accesses[0];
         String action = "WAIT";
         while (true) {
+            previousFloor = currentFloor;
             currentFloor = in.nextInt(); // floor of the leading clone
             currentPos = in.nextInt(); // position of the leading clone on its floor
             direction = in.next(); // direction of the leading clone: LEFT or RIGHT
 
-            if(currentFloor != -1){ // When the clone is already in game, not spawning
+            if(previousFloor != currentFloor){
+                if(previousFloor != -1){
+                    floorMarks[previousFloor] = true;
+                }
+            }
+
+            if(currentFloor != -1){
+                currentAccess = accesses[currentFloor];
+                System.err.println("----------");
+                System.err.println("currentFloor: "+currentFloor);
+                System.err.println("floorMarks[currentFloor]: "+floorMarks[currentFloor]);
+                System.err.println("currentAccess.floor: "+currentAccess.floor);
+                System.err.println("direction: "+direction);  
+                System.err.println("access relative position: "+accessRelativePositionFromLeadingClone(currentPos, currentAccess.pos));  
+            }
+
+            if(currentFloor != -1){ // if the clone is already in game, not spawning
             
                 if(!floorMarks[currentFloor]){
-                    currentAccess = accesses[currentFloor];
-                    System.err.println("-----before check direction-----");
-                    System.err.println("direction: "+direction);  
-                    System.err.println("access relative position: "+accessRelativePositionFromLeadingClone(currentPos, currentAccess.pos));  
-                    if( direction.equals(accessRelativePositionFromLeadingClone(currentPos, currentAccess.pos)) ){ /*  clone is facing towards currentAccess */
+                    if( direction.equals(accessRelativePositionFromLeadingClone(currentPos, currentAccess.pos)) || currentPos == currentAccess.pos){ /*  clone is facing towards currentAccess */
                         //Do nothing
                         System.err.println("action: WAIT");
                         action = "WAIT";
                         System.err.println("WAIT");
                     } else {
                         System.err.println("action: BLOCK");
-                        passOneTurn(in); // TODO replace this for the correct code
-                        action = "BLOCK";
                         floorMarks[currentFloor] = true;
+                        // ----Pass one turn----
+                        System.err.println("PASS START");
+                        System.out.println("WAIT");
+                        currentFloor = in.nextInt();
+                        currentPos = in.nextInt();
+                        direction = in.next();
+                        System.err.println("currentFloor: "+currentFloor);
+                        System.err.println("currentPos: "+currentPos);
+                        System.err.println("direction: "+direction);
+                        System.err.println("PASS END");
+                        // ---------------------
+                        action = "BLOCK";
                         System.err.println("BLOCK");
                         // Change direction
                     }
                 } else {
                     action = "WAIT";
                 }
-                // Write an action using System.out.println()
-                // To debug: System.err.println("Debug messages...");
 
                 System.out.println(action); // action: WAIT or BLOCK
             } else { // If the clone is spawning
