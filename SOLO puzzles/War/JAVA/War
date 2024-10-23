@@ -8,52 +8,65 @@ import java.math.*;
  **/
 class Solution {
 
-    public static int debuglowerRounds = 10;
-    public static int debughigherRounds = 20;
+    public static int debug_lower = 0;
+    public static int debug_higher = 10; 
+
+    public static void addCardsAtWarToHand(List<String> hand, List<String> cardsAtWar){
+        for(int i=0;i<cardsAtWar.size();i++){
+            String currCard = cardsAtWar.get(i);
+            hand.add(currCard);
+        }
+        cardsAtWar.clear();
+    }
+
+    public static boolean isNumeric(String str){
+        return str.matches("\\d+");
+    }
 
     public static boolean firstCardBeatsSecond(String card1, String card2,int numberOfRounds){
-        char value1 = card1.charAt(0);
-        char value2 = card2.charAt(0);
+        String value1 = card1.substring(0,card1.length()-1);
+        String value2 = card2.substring(0,card2.length()-1);
         boolean res = false;
         if(value1 != value2){
-            if( !Character.isDigit(value1) && Character.isDigit(value2)){
+            if( !isNumeric(value1) && isNumeric(value2)){
                 res = true;
-            } else if (Character.isDigit(value1) && !Character.isDigit(value2)){
+            } else if (isNumeric(value1) && !isNumeric(value2)){
                 res = false;
-            } else if(!Character.isDigit(value1) && !Character.isDigit(value2)){
-                if(value1 == 'A'){
+            } else if(!isNumeric(value1) && !isNumeric(value2)){
+                if(value1.equals("A") && !value2.equals("A")){
                     res = true;
-                }else if(value2 == 'A'){
+                }else if(value2.equals("A")){
                     res = false;
-                }else if(value1 == 'K'){
+                }else if(value1.equals("K") && !value2.equals("K")){
                     res = true;
-                }else if(value2 == 'K'){
+                }else if(value2.equals("K")){
                     res = false;
-                }else if(value1 == 'Q'){
+                }else if(value1.equals("Q") && !value2.equals("Q")){
                     res = true;
-                }else if(value2 == 'Q'){
+                }else if(value2.equals("Q")){
                     res = false;
                 }
-            } else if(Character.isDigit(value1) && Character.isDigit(value2)){
-                res = Character.getNumericValue(value1) > Character.getNumericValue(value2);
+            } else if(isNumeric(value1) && isNumeric(value2)){
+                res = Integer.parseInt(value1) > Integer.parseInt(value2);
             }
         }
         
-        if(10 <= numberOfRounds && numberOfRounds <= 20)
-        System.err.println("value1; "+value1);
-        System.err.println("value2; "+value2);
-        System.err.println("res; "+res);
+        if(debug_lower <= numberOfRounds && numberOfRounds <= debug_higher){
+            System.err.println("value1; "+value1);
+            System.err.println("value2; "+value2);
+            System.err.println("res; "+res);
+        }
         return res;
     }
 
-    public static void printHand(List<String> hand){
+    public static void printList(List<String> hand){
         for(String card : hand){
             System.err.print(card+" ");
         }
         System.err.print("\n");
     }
 
-    public static void main(String args[]) {
+    public static String simulateGame(){
         Scanner in = new Scanner(System.in);
         int n = in.nextInt(); // the number of cards for player 1
         List<String> handPlayer1 = new ArrayList<>();
@@ -61,14 +74,14 @@ class Solution {
             String cardp1 = in.next(); // the n cards of player 1
             handPlayer1.add(cardp1);
         }
-        printHand(handPlayer1);
+        printList(handPlayer1);
         List<String> handPlayer2 = new ArrayList<>();
         int m = in.nextInt(); // the number of cards for player 2
         for (int i = 0; i < m; i++) {
             String cardp2 = in.next(); // the m cards of player 2
             handPlayer2.add(cardp2);
         }
-        printHand(handPlayer2);
+        printList(handPlayer2);
         System.err.print("\n");
 
         int numberOfRounds = 0;
@@ -77,56 +90,63 @@ class Solution {
         List<String> cardsAtWarPlayer1 = new ArrayList<>();
         List<String> cardsAtWarPlayer2 = new ArrayList<>();
         while(true){
+            if(debug_lower <= numberOfRounds && numberOfRounds <= debug_higher)
             System.err.println("--------Round: "+numberOfRounds+"--------");
-            System.err.println("isWar: "+isWar);
-            if(10 <= numberOfRounds && numberOfRounds <= 20){
-            printHand(handPlayer1);
-            printHand(handPlayer2);
-            }
+            //System.err.println("isWar: "+isWar);
             if(!isWar){
                 numberOfRounds++;
             } else {
-                for(int i =0;i<2;i++){
+                for(int i =0;i<3;i++){
+                    if(handPlayer1.isEmpty() || handPlayer2.isEmpty()){
+                        return "PAT";
+                    }
                     String cardPlayer1 = handPlayer1.get(0);
                     handPlayer1.remove(0);
                     cardsAtWarPlayer1.add(cardPlayer1);
                     String cardPlayer2 = handPlayer2.get(0);
                     handPlayer2.remove(0);
-                    cardsAtWarPlayer2.add(cardPlayer1);
+                    cardsAtWarPlayer2.add(cardPlayer2);
+                }
+            }
+            if(debug_lower <= numberOfRounds && numberOfRounds <= debug_higher){
+                printList(handPlayer1);
+                printList(handPlayer2);
+                if(isWar){
+                    printList(cardsAtWarPlayer1);
+                    printList(cardsAtWarPlayer2);
                 }
             }
             isWar = false;
+            if(handPlayer1.isEmpty() || handPlayer2.isEmpty()){
+                return "PAT";
+            }
             String currentCardPlayer1 = handPlayer1.get(0);
             handPlayer1.remove(0);
+            cardsAtWarPlayer1.add(currentCardPlayer1);
             String currentCardPlayer2 = handPlayer2.get(0);
             handPlayer2.remove(0);
+            cardsAtWarPlayer2.add(currentCardPlayer2);
             if(firstCardBeatsSecond(currentCardPlayer1, currentCardPlayer2, numberOfRounds)){
-                // TODO system.err print numberOfRounds
-                handPlayer1.add(currentCardPlayer1);
-                handPlayer1.add(currentCardPlayer2);
-                // TODO If we're at war, add the cards at war to player 1
+                addCardsAtWarToHand(handPlayer1, cardsAtWarPlayer1);
+                addCardsAtWarToHand(handPlayer1, cardsAtWarPlayer2);
             } else if(firstCardBeatsSecond(currentCardPlayer2, currentCardPlayer1, numberOfRounds)) {
-                handPlayer2.add(currentCardPlayer1);
-                handPlayer2.add(currentCardPlayer2);
-                // TODO If we're at war, add the cards at war to player 2
+                addCardsAtWarToHand(handPlayer2, cardsAtWarPlayer1);
+                addCardsAtWarToHand(handPlayer2, cardsAtWarPlayer2);
             } else { // Draw
                 isWar = true;
-                cardsAtWarPlayer1.add(currentCardPlayer1);
-                cardsAtWarPlayer2.add(currentCardPlayer2);
             }
+
             if(handPlayer1.isEmpty()){
-                res = "2 "+numberOfRounds;
-                break;
+                return "2 "+numberOfRounds;
             } else if(handPlayer2.isEmpty()){
-                res = "1 "+numberOfRounds;
-                break;
+                return "1 "+numberOfRounds;
             }
 
         }
+    }
 
-        // Write an answer using System.out.println()
-        // To debug: System.err.println("Debug messages...");
-
+    public static void main(String args[]) {
+        String res = simulateGame();
         System.out.println(res);
     }
 }
