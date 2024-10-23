@@ -1,0 +1,77 @@
+import java.util.*;
+import java.io.*;
+import java.math.*;
+
+/**
+ * Auto-generated code below aims at helping you parse
+ * the standard input according to the problem statement.
+ **/
+class Solution {
+
+    public static String alphabet = "abcdefghijklmnopqrstuvwxyz?";
+
+    public static String normalizeString(String T){
+        String T_normalized = "";
+        for(int i=0;i<T.length();i++){
+            char c_normalized = Character.toLowerCase(T.charAt(i));
+
+            boolean foundOnAlphabet = false;
+            for(int j=0;j<alphabet.length();j++){
+                if(alphabet.charAt(j) == c_normalized){
+                    foundOnAlphabet = true;
+                    break;
+                }
+            }
+            if(foundOnAlphabet){
+                T_normalized += c_normalized;
+            } else {
+                T_normalized += "?";
+            }
+        }
+        return T_normalized;
+    }
+    
+    public static void main(String args[]) {
+        Scanner in = new Scanner(System.in);
+        int L = in.nextInt();
+        int H = in.nextInt();
+        if (in.hasNextLine()) {
+            in.nextLine();
+        }
+        String T = in.nextLine();
+        String T_normalized = normalizeString(T);
+
+        Map<Character, Integer> asciiToArtIndexMap = new HashMap<>();
+        for(int i=0;i<alphabet.length();i++){
+            Character c = alphabet.charAt(i);
+            asciiToArtIndexMap.put(c, i);
+        }
+
+        String[][] ascii_alphabet = new String[alphabet.length()][H];
+        for (int i = 0; i < H; i++) {
+            String ROW = in.nextLine();
+            for(int j = 0;j<alphabet.length();j++){
+                // Store the ascii string per height level on the ascii_alphabet
+                String level = ROW.substring(j*L,j*L+L);
+                ascii_alphabet[j][i] = level;
+            }
+        }
+
+        // Write an answer using System.out.println()
+        // To debug: System.err.println("Debug messages...");
+        String res = "";
+        for(int level=0;level<H;level++){
+            String level_str = "";
+            /*System.err.println("T.length(): "+T.length());
+            System.err.println("T: "+T);*/
+            for(int c_index=0;c_index<T_normalized.length();c_index++){
+                Character c = T_normalized.charAt(c_index);
+                Integer alph_index = asciiToArtIndexMap.get(c);
+                /*System.err.println("c: "+c);
+                System.err.println("alph_index: "+alph_index);*/
+                level_str += ascii_alphabet[alph_index][level];
+            }
+            System.out.println(level_str);
+        }
+    }
+}
