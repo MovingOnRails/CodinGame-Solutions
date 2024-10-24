@@ -1,0 +1,44 @@
+import java.util.*;
+import java.io.*;
+import java.math.*;
+
+/**
+ * Auto-generated code below aims at helping you parse
+ * the standard input according to the problem statement.
+ **/
+class Solution {
+
+    public static void main(String args[]) {
+        Scanner in = new Scanner(System.in);
+        String LON_raw = in.next();
+        String LAT_raw = in.next();
+        double LON = Double.parseDouble(LON_raw.replace(",","."));
+        double LAT = Double.parseDouble(LAT_raw.replace(",","."));
+        int N = in.nextInt();
+        if (in.hasNextLine()) {
+            in.nextLine();
+        }
+        double min_distance = Double.POSITIVE_INFINITY;
+        String res_name = "";
+        for (int i = 0; i < N; i++) {
+            String DEFIB_raw = in.nextLine();
+            String[] defibrillator = DEFIB_raw.split(";");
+            double DEFIB_lon = Double.parseDouble(defibrillator[4].replace(",", "."));
+            double DEFIB_lat = Double.parseDouble(defibrillator[5].replace(",", "."));
+            double cosine_x = Math.cos((DEFIB_lat+LAT)/2);
+            double x = (DEFIB_lon - LON)*cosine_x;
+            double y = DEFIB_lat - LAT;
+            double distance = Math.sqrt(x*x+y*y) * 6371;
+            if(distance < min_distance){
+                min_distance = distance;
+                res_name = defibrillator[1];
+            }
+
+        }
+
+        // Write an answer using System.out.println()
+        // To debug: System.err.println("Debug messages...");
+
+        System.out.println(res_name);
+    }
+}
