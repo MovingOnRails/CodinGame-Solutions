@@ -1,0 +1,60 @@
+import java.util.*;
+import java.io.*;
+import java.math.*;
+
+/**
+ * Auto-generated code below aims at helping you parse
+ * the standard input according to the problem statement.
+ **/
+class Solution {
+
+    public static void main(String args[]) {
+        Scanner in = new Scanner(System.in);
+        int N = in.nextInt();
+        List<Integer> horseStrengths = new LinkedList<>();
+
+        horseStrengths.add(in.nextInt());
+        for (int n = 0; n < N-1; n++) {
+            int pi = in.nextInt();
+            
+            ListIterator<Integer> listIterator = horseStrengths.listIterator(horseStrengths.size());
+
+            while(listIterator.hasPrevious()){
+                int currentElement = listIterator.previous();
+                if(currentElement > pi){
+                    if(listIterator.hasPrevious()){
+                        int currentElement_lessOne = listIterator.previous();
+                        listIterator.next();
+                        if(currentElement_lessOne < pi){
+                            listIterator.add(pi);
+                            break;
+                        }
+                    } else {
+                        listIterator.add(pi);
+                    }
+                } else if(currentElement < pi) {
+                    horseStrengths.add(pi);
+                    break;
+                }
+            }
+        }
+
+        /*for(int i=0;i<horseStrengths.size();i++){
+            System.err.println("i: "+i);
+            System.err.println("element: "+horseStrengths.get(i));
+        }*/
+
+        int difference = Integer.MAX_VALUE;
+        for(int i=0;i<N-1;i++){
+                int curr_difference = Math.abs(horseStrengths.get(i) - horseStrengths.get(i+1));
+                if(curr_difference < difference){
+                    difference = curr_difference;
+                }
+        }
+
+        // Write an answer using System.out.println()
+        // To debug: System.err.println("Debug messages...");
+
+        System.out.println(difference);
+    }
+}
