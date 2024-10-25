@@ -1,0 +1,35 @@
+import java.util.*;
+import java.io.*;
+import java.math.*;
+
+/**
+ * Auto-generated code below aims at helping you parse
+ * the standard input according to the problem statement.
+ **/
+class Solution {
+
+    public static void main(String args[]) {
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+
+        int[] stocks = new int[n];
+        for (int i = 0; i < n; i++) {
+            int v = in.nextInt();
+            stocks[i] = v;
+        }
+
+        int maximalLoss = 0;
+        for(int i=0;i<n;i++){
+            for(int j=i+1;j<n;j++){
+                int difference = stocks[j] - stocks[i];
+                if(difference < maximalLoss){
+                    maximalLoss = difference;
+                }
+            }
+        }
+        // Write an answer using System.out.println()
+        // To debug: System.err.println("Debug messages...");
+
+        System.out.println(maximalLoss);
+    }
+}
