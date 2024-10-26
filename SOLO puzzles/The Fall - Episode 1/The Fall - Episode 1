@@ -1,0 +1,101 @@
+import java.util.*;
+import java.io.*;
+import java.math.*;
+
+/**
+ * Auto-generated code below aims at helping you parse
+ * the standard input according to the problem statement.
+ **/
+class Player {
+
+    public static String get_exit(int curr_room, String entrance_POS){
+        System.err.println("entrance_POS: "+entrance_POS);
+        System.err.println("curr_room: "+curr_room);
+        switch(curr_room){
+            case 1:
+            case 3:
+            case 7:
+            case 8:
+            case 9:
+            case 12:
+            case 13:
+                return "DOWN";
+            case 2:
+            case 6:
+                if(entrance_POS.equals("RIGHT")){
+                    return "LEFT";
+                } else if(entrance_POS.equals("LEFT")){
+                    return "RIGHT";
+                }
+                break;
+            case 4:
+                if(entrance_POS.equals("TOP")){
+                    return "LEFT";
+                } else if(entrance_POS.equals("RIGHT")){
+                    return "DOWN";
+                }
+                break;
+            case 5:
+                if(entrance_POS.equals("TOP")){
+                    return "RIGHT";
+                } else if(entrance_POS.equals("LEFT")){
+                    return "DOWN";
+                }
+                break;
+            case 10:
+                return "LEFT";
+            case 11:
+                return "RIGHT";
+        }
+        return "ERROR";
+    }
+
+    public static void main(String args[]) {
+        Scanner in = new Scanner(System.in);
+        int W = in.nextInt(); // number of columns.
+        int H = in.nextInt(); // number of rows.
+        if (in.hasNextLine()) {
+            in.nextLine();
+        }
+        int[][] rooms = new int[W][H];
+        for (int i = 0; i < H; i++) {
+            
+            String LINE = in.nextLine(); // represents a line in the grid and contains W integers. Each integer represents one room of a given type.
+            String[] line_separated = LINE.split(" ");
+            for(int j=0;j<W;j++){
+                rooms[j][i] = Integer.parseInt(line_separated[j]);
+                //System.err.println("rooms["+i+"]["+j+"]: "+rooms[i][j]);
+            }
+        }
+        int EX = in.nextInt(); // the coordinate along the X axis of the exit (not useful for this first mission, but must be read).
+
+        // game loop
+        while (true) {
+            int XI = in.nextInt();
+            int YI = in.nextInt();
+            String POS = in.next();
+            //System.err.println("XI: "+XI);
+            //System.err.println("YI: "+YI);
+            int curr_room = rooms[XI][YI];
+            String curr_exit = get_exit(curr_room, POS);
+            System.err.println("curr_exit: "+curr_exit);
+            if(curr_exit == "RIGHT"){
+                XI++;
+                POS = "LEFT";
+            } else if(curr_exit == "LEFT"){
+                XI--;
+                POS = "RIGHT";
+            } else if(curr_exit == "DOWN"){
+                YI++;
+                POS = "TOP";
+            }
+
+            // Write an action using System.out.println()
+            // To debug: System.err.println("Debug messages...");
+
+
+            // One line containing the X Y coordinates of the room in which you believe Indy will be on the next turn.
+            System.out.println(XI+" "+YI);
+        }
+    }
+}
