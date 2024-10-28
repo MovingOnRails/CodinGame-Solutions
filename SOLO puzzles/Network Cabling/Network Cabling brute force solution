@@ -1,0 +1,114 @@
+import java.util.*;
+import java.io.*;
+import java.math.*;
+
+/**
+ * Auto-generated code below aims at helping you parse
+ * the standard input according to the problem statement.
+ **/
+
+class Building {
+    public BigInteger x;
+    public BigInteger y;
+    Building(BigInteger x, BigInteger y){
+        this.x= x;
+        this.y= y;
+    }
+}
+class Solution {
+
+    public static Building getEasternmostBuilding(Building[] buildings){
+        BigInteger easternmostPointX = new BigInteger("0");
+        //System.err.println("easternmostPointX: "+easternmostPointX);
+        Building easternmostBuilding = buildings[0];
+        for(Building b : buildings){
+            if(easternmostPointX.compareTo(b.x) == -1){ // easternmostPointX > b.x
+                //System.err.println("b.x: "+b.x);
+                easternmostPointX = b.x;
+                easternmostBuilding = b;
+            }
+        }
+        return easternmostBuilding;
+    }
+
+    public static Building getWesternmostBuilding(Building[] buildings){
+        BigInteger westernmostPointX = new BigInteger("2");
+        westernmostPointX = westernmostPointX.pow(63);
+        //System.err.println("westernmostPointX: "+westernmostPointX);
+
+        Building westernmostBuilding = buildings[0];
+        for(Building b : buildings){
+            /*if(b.x.compareTo(new BigInteger("100000")) == -1){
+                System.err.println("b.x: "+b.x);
+            }*/
+            if(westernmostPointX.compareTo(b.x) == 1){
+                westernmostPointX = b.x;
+                westernmostBuilding = b;
+            }
+        }
+        return westernmostBuilding;
+    }
+
+    public static BigInteger getSouthernmostBuildingY(Building[] buildings){
+        BigInteger southernmostPointY = new BigInteger("2");
+        southernmostPointY = southernmostPointY.pow(63);
+        for(Building b : buildings){
+            if(southernmostPointY.compareTo(b.y) == 1){
+                southernmostPointY = b.y;
+            }
+        }
+        return southernmostPointY;
+    }
+
+    public static BigInteger getNorthernmostBuildingY(Building[] buildings){
+        BigInteger northernmostPointY = new BigInteger("0");
+        for(Building b : buildings){
+            if(northernmostPointY.compareTo(b.y) == -1){
+                northernmostPointY = b.y;
+            }
+        }
+        return northernmostPointY;
+    }
+
+    public static void main(String args[]) {
+        Scanner in = new Scanner(System.in);
+        int N = in.nextInt();
+        Building[] buildings = new Building[N];
+        BigInteger displacement = new BigInteger("1073741824"); // 2^30
+        for (int i = 0; i < N; i++) {
+            int X = in.nextInt();
+            BigInteger XBigInt = BigInteger.valueOf(X);
+            int Y = in.nextInt();
+            BigInteger YBigInt = BigInteger.valueOf(Y);
+            BigInteger normalizedX = XBigInt.add(displacement);
+            BigInteger normalizedY = YBigInt.add(displacement);
+            buildings[i] = new Building(normalizedX,normalizedY);
+        }
+        Building easternmostBuilding = getEasternmostBuilding(buildings);
+        Building westernmostBuilding = getWesternmostBuilding(buildings);
+        BigInteger lengthOfEastWestCable = easternmostBuilding.x.subtract(westernmostBuilding.x);
+
+        BigInteger minimumLengthOfCable = new BigInteger("2");
+        minimumLengthOfCable = minimumLengthOfCable.pow(63);
+
+        BigInteger southernmostBuildingY = getSouthernmostBuildingY(buildings);
+        BigInteger northernmostBuildingY = getNorthernmostBuildingY(buildings);
+
+        BigInteger yIndex = southernmostBuildingY;
+
+        for(;yIndex.compareTo(northernmostBuildingY) == -1;yIndex.add(new BigInteger("1"))){
+            BigInteger currentLength = lengthOfEastWestCable;
+            for(Building b : buildings){
+                currentLength.add((b.y.subtract(yIndex)).abs());
+            }
+            if(currentLength.compareTo(minimumLengthOfCable) == -1){ // currentLength < minimumLengthOfCable
+                minimumLengthOfCable = currentLength;
+            }
+        }
+        System.err.println("minimumLengthOfCable: "+minimumLengthOfCable);
+        // Write an answer using System.out.println()
+        // To debug: System.err.println("Debug messages...");
+
+        System.out.println(minimumLengthOfCable);
+    }
+}
