@@ -1,0 +1,101 @@
+import java.util.*;
+import java.io.*;
+import java.math.*;
+
+/**
+ * Auto-generated code below aims at helping you parse
+ * the standard input according to the problem statement.
+ **/
+
+class Building {
+    public BigInteger x;
+    public BigInteger y;
+    Building(BigInteger x, BigInteger y){
+        this.x= x;
+        this.y= y;
+    }
+}
+class Solution {
+
+    public static Building getEasternmostBuilding(Building[] buildings){
+        BigInteger easternmostPointX = new BigInteger("0");
+        //System.err.println("easternmostPointX: "+easternmostPointX);
+        Building easternmostBuilding = buildings[0];
+        for(Building b : buildings){
+            if(easternmostPointX.compareTo(b.x) == -1){ // easternmostPointX > b.x
+                //System.err.println("b.x: "+b.x);
+                easternmostPointX = b.x;
+                easternmostBuilding = b;
+            }
+        }
+        return easternmostBuilding;
+    }
+
+    public static Building getWesternmostBuilding(Building[] buildings){
+        BigInteger westernmostPointX = new BigInteger("2");
+        westernmostPointX = westernmostPointX.pow(63);
+        //System.err.println("westernmostPointX: "+westernmostPointX);
+
+        Building westernmostBuilding = buildings[0];
+        for(Building b : buildings){
+            /*if(b.x.compareTo(new BigInteger("100000")) == -1){
+                System.err.println("b.x: "+b.x);
+            }*/
+            if(westernmostPointX.compareTo(b.x) == 1){
+                westernmostPointX = b.x;
+                westernmostBuilding = b;
+            }
+        }
+        return westernmostBuilding;
+    }
+
+    public static void main(String args[]) {
+        Scanner in = new Scanner(System.in);
+        int N = in.nextInt();
+        Building[] buildings = new Building[N];
+        BigInteger displacement = new BigInteger("1073741824"); // 2^30
+        int[] buildingsY = new int[N];
+        for (int i = 0; i < N; i++) {
+            int X = in.nextInt();
+            int Y = in.nextInt();
+            buildingsY[i] = Y; // FOr the calculation of the median
+            BigInteger XBigInt = BigInteger.valueOf(X);
+            BigInteger YBigInt = BigInteger.valueOf(Y);
+            BigInteger normalizedX = XBigInt.add(displacement);
+            BigInteger normalizedY = YBigInt.add(displacement);
+            buildings[i] = new Building(normalizedX,normalizedY);
+        }
+        Building easternmostBuilding = getEasternmostBuilding(buildings);
+        Building westernmostBuilding = getWesternmostBuilding(buildings);
+        BigInteger lengthOfEastWestCable = easternmostBuilding.x.subtract(westernmostBuilding.x);
+        System.err.println("lengthOfEastWestCable: "+lengthOfEastWestCable);
+
+        Arrays.sort(buildingsY);
+        /*for(int i=0;i<buildingsY.length;i++){
+            System.err.println("buildingsY["+i+"]= "+buildingsY[i]);
+        }*/
+        double medianIndexDouble = Math.floor((buildingsY.length)/2.0);
+        System.err.println("medianIndexDouble: "+medianIndexDouble);
+        int medianIndex = (int) medianIndexDouble;
+        System.err.println("medianIndex: "+medianIndex);
+        int median = buildingsY[medianIndex];
+        System.err.println("median: "+median);
+        BigInteger yIndex = (new BigInteger(String.valueOf(median))).add(displacement);
+        
+
+        BigInteger currentLength = lengthOfEastWestCable;
+        System.err.println("currentLength_before: "+currentLength);
+        System.err.println("yIndex: "+yIndex);
+        for(Building b : buildings){
+            BigInteger lengthToAdd = b.y.subtract(yIndex).abs(); 
+            currentLength = currentLength.add(lengthToAdd);
+            /*System.err.println("b.y: "+b.y);
+            System.err.println("lengthToAdd: "+lengthToAdd);*/
+        }
+        System.err.println("currentLength_after: "+currentLength);
+        // Write an answer using System.out.println()
+        // To debug: System.err.println("Debug messages...");
+
+        System.out.println(currentLength);
+    }
+}
