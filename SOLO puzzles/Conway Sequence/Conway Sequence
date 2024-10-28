@@ -1,0 +1,54 @@
+import java.util.*;
+import java.io.*;
+import java.math.*;
+
+/**
+ * Auto-generated code below aims at helping you parse
+ * the standard input according to the problem statement.
+ **/
+class Solution {
+
+    public static List<Integer> getConwayNextlineFromLine(List<Integer> line){
+        int currentNumber = line.get(0);
+        int currentNumber_numberOfApparitions = 0;
+        ListIterator<Integer> it = line.listIterator();
+        List<Integer> res = new LinkedList<>();
+        while(it.hasNext()){
+            int curr = it.next();
+            if(curr == currentNumber){
+                currentNumber_numberOfApparitions++;
+            } else {
+                res.add(currentNumber_numberOfApparitions);
+                res.add(currentNumber);
+                currentNumber = curr;
+                currentNumber_numberOfApparitions = 1;
+            }
+        }
+        res.add(currentNumber_numberOfApparitions);
+        res.add(currentNumber);
+        return res;
+    }
+
+    public static void printList(List<Integer> list){
+        for(int i=0;i<list.size();i++){
+            if(i!=list.size()-1){
+                System.out.print(list.get(i)+" ");
+            } else {
+                System.out.print(list.get(i)+"\n");
+            }
+        }
+    }
+
+    public static void main(String args[]) {
+        Scanner in = new Scanner(System.in);
+        int R = in.nextInt();
+        int L = in.nextInt();
+        
+        List<Integer> res = new LinkedList<>();
+        res.add(R);
+        for(int i=1;i<L;i++){
+           res = getConwayNextlineFromLine(res); 
+        }
+        printList(res);
+    }
+}
