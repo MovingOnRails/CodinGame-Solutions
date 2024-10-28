@@ -1,0 +1,50 @@
+import java.util.*;
+import java.io.*;
+import java.math.*;
+
+/**
+ * Auto-generated code below aims at helping you parse
+ * the standard input according to the problem statement.
+ **/
+class TrieNode {
+    public static int numberOfKeyedNodes = 0;
+    Map<Character, TrieNode> children = new HashMap<>();
+    public boolean isEndOfWord = false;
+
+    public void addKey(String key){
+        
+        TrieNode currNode = this;
+        for(int i=0;i<key.length();i++){
+            char currChar = key.charAt(i);
+            if(currNode.children.containsKey(currChar)){
+                currNode = currNode.children.get(currChar);
+            } else {
+                TrieNode nextNode = new TrieNode();
+                currNode.children.put(currChar, nextNode);
+                currNode = nextNode;
+                this.numberOfKeyedNodes++;
+            }
+        }
+        currNode.isEndOfWord = true;
+    }
+}
+
+class Solution {
+
+    public static void main(String args[]) {
+        Scanner in = new Scanner(System.in);
+        int N = in.nextInt();
+        TrieNode trie = new TrieNode();
+        for (int i = 0; i < N; i++) {
+            String telephone = in.next();
+            trie.addKey(telephone);
+        }
+
+        // Write an answer using System.out.println()
+        // To debug: System.err.println("Debug messages...");
+
+
+        // The number of elements (referencing a number) stored in the structure.
+        System.out.println(trie.numberOfKeyedNodes);
+    }
+}
