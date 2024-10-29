@@ -16,7 +16,7 @@ class DirectedNode {
 
 class Solution {
 
-    public static DirectedNode findTreeRoot(List<DirectedNode> nodes){
+    public static List<DirectedNode> findTreeRoots(List<DirectedNode> nodes){
         List<Integer> rightSideOfEdges = new LinkedList<>();
         
         for(DirectedNode currentNode : nodes){
@@ -24,7 +24,7 @@ class Solution {
                 rightSideOfEdges.add(rightSide);
             }
         }
-        DirectedNode root = nodes.getFirst();
+        List<DirectedNode> roots = new LinkedList<>();
         for(DirectedNode currNode : nodes){
             boolean found = false;
             for(Integer rightSide : rightSideOfEdges ){
@@ -33,11 +33,10 @@ class Solution {
                 }
             }
             if(!found){
-                root = currNode;
-                break;
+                roots.add(currNode);
             }
         }
-        return root;
+        return roots;
     }
 
     public static int DFS(DirectedNode currNode, List<DirectedNode> nodes){
@@ -96,13 +95,18 @@ class Solution {
             System.err.println("node: "+node.number);
         }
         // TODO use different roots and get the maximum from the paths of different roots
-        DirectedNode root = findTreeRoot(influences);
-        System.err.println("root: "+root.number);
-        int maxPathLength = DFS(root, influences);
-        System.err.println("maxPathLength: "+maxPathLength);
-
-
+        List<DirectedNode> roots = findTreeRoots(influences);
+        int maximumPathLength = 0;
+        for(DirectedNode root : roots){
+            System.err.println("root: "+root.number);
+            int currPathLength = DFS(root, influences);
+            System.err.println("currPathLength: "+currPathLength);
+            if(currPathLength > maximumPathLength){
+                maximumPathLength = currPathLength;
+            }
+        }
+        
         // The number of people involved in the longest succession of influences
-        System.out.println(maxPathLength+1);
+        System.out.println(maximumPathLength+1);
     }
 }
