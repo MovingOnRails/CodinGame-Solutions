@@ -104,7 +104,6 @@ class RobotState {
     boolean beerMode = false;
     Priority priority = Priority.OFF;
     List<Direction> moveList = new LinkedList<>();
-    boolean finished = false;
     boolean inverterON = false;
 
     Position nextTentativePosition(){
@@ -128,6 +127,44 @@ class RobotState {
         }
         this.priority = Priority.OFF;
         return this.position;
+    }
+
+    boolean deepEquals(RobotState other){
+        return this.position.equals(other.position) &&
+                this.direction == other.direction &&
+                this.beerMode == other.beerMode &&
+                this.priority == other.priority &&
+                this.inverterON == other.inverterON;
+    }
+}
+
+class JourneyState{
+    RobotState robotState = new RobotState();
+    char[][] map;
+    int L;
+    int C;
+    JourneyState(RobotState robotState, char[][] map, int L, int C){
+        RobotState newRobotState = new RobotState();
+
+        newRobotState.position = robotState.position;
+        newRobotState.direction = robotState.direction;
+        newRobotState.beerMode = robotState.beerMode;
+        newRobotState.priority = robotState.priority;
+        newRobotState.inverterON = robotState.inverterON;
+        
+        this.robotState = newRobotState;
+        char[][] newMap = new char[L][C];
+        for(int i=0;i<L;i++){
+            for(int j=0;j<C;j++){
+                newMap[i][j] = map[i][j];
+            }
+        }
+        this.map = newMap;
+        this.L = L;
+        this.C = C;
+    }
+    boolean deepEquals(JourneyState other){
+        return other.robotState.deepEquals(this.robotState) && Arrays.deepEquals(this.map,other.map);
     }
 }
 
@@ -159,7 +196,6 @@ class Solution {
         System.err.println("robotState.priority: "+robotState.priority.strValue);
         System.err.println("robotState.priority.inverterON: "+robotState.inverterON);
         System.err.println("robotState.beerMode"+robotState.beerMode);
-        //System.err.println("");
         switch(nextCell){
             case '@':
             case ' ':
@@ -207,7 +243,6 @@ class Solution {
                 return robotState;
             case '$':
                 robotState.move();
-                robotState.finished = true;
                 return robotState;
         }
         return new RobotState();
@@ -262,13 +297,25 @@ class Solution {
         currentRobotState.beerMode = false;
         currentRobotState.moveList = new LinkedList<>();
 
+        List<JourneyState> journeyStates = new LinkedList<>();
         boolean isLooping = false;
         printMap(map,L,C);
         while(true){
             Position nextTentativePosition = currentRobotState.nextTentativePosition();
             char nextCell = map[nextTentativePosition.y][nextTentativePosition.x];
 
+            JourneyState currentJourneyState = new JourneyState(currentRobotState, map, L, C);
+            journeyStates.add(currentJourneyState);
+
             RobotState nextRobotState = getNextState(nextCell, currentRobotState, map, L, C);
+            JourneyState nextJourneyState = new JourneyState(nextRobotState, map, L, C);
+
+            for(JourneyState journeyState : journeyStates){
+                if(journeyState.deepEquals(nextJourneyState)){
+                    isLooping = true;
+                    break;
+                }
+            }
 
             if(nextCell == '$'){
                 break;
