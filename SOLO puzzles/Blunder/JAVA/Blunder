@@ -1,0 +1,192 @@
+import java.util.*;
+import java.io.*;
+import java.math.*;
+
+/**
+ * Auto-generated code below aims at helping you parse
+ * the standard input according to the problem statement.
+ **/
+class Position {
+    public int y;
+    public int x;
+    Position(int y,int x){
+        this.x = x;
+        this.y = y;
+    }
+    Position move(Direction direction, List<Direction> moveList, boolean addDirectionToMoveList){
+        if(addDirectionToMoveList){
+            moveList.add(direction);
+        }
+        switch(direction){
+            case Direction.SOUTH:
+                return this.moveSOUTH();
+            case Direction.EAST:
+                return this.moveEAST();
+            case Direction.NORTH:
+                return this.moveNORTH();
+            case Direction.WEST:
+                return this.moveWEST();
+        }
+        return new Position(-1,-1);
+    }
+    Position moveSOUTH(){
+        return new Position(this.y+1,this.x);
+    }
+    Position moveEAST(){
+        return new Position(this.y, this.x+1);
+    }
+    Position moveNORTH(){
+        return new Position(this.y-1, this.x);
+    }
+    Position moveWEST(){
+        return new Position(this.y,this.x-1);
+    }
+
+    public String asString(){
+        return "("+this.y+","+this.x+")";
+    }
+}
+
+enum Direction {
+    SOUTH("SOUTH"), 
+    EAST("EAST"), 
+    NORTH("NORTH"), 
+    WEST("WEST");
+
+    public String strValue;
+
+    Direction(String strValue){
+        this.strValue = strValue;
+    }
+
+    public Direction nextDirection(){
+        return this.values()[(this.ordinal()+1) % this.values().length];
+    }
+}
+
+class Solution {
+
+    public static Position getNextPosition(char nextCell,
+                                            Position currPosition,
+                                            Direction currDirection, 
+                                            boolean beerMode,
+                                            List<Direction> moveList){
+        switch(nextCell){
+            case ' ':
+                return currPosition.move(currDirection, moveList, true);    
+            case '#':
+                return currPosition;
+            case 'X':
+                if(beerMode){
+                    // TODO alter the map when smashing through X
+                    return currPosition.move(currDirection, moveList, true);
+                } else {
+                    return currPosition;
+                }
+            case '$':
+                return currPosition.move(currDirection, moveList, true);
+        }
+        return new Position(-1, -1);
+    }
+
+    public static Direction getNextDirection(char nextCell,Position currPosition,Direction currDirection,boolean beerMode){
+        switch(nextCell){
+            case ' ':
+                return currDirection;
+            case '#':
+                return currDirection.nextDirection();
+            case 'X':
+                if(beerMode){
+                    return currDirection;
+                } else {
+                    return currDirection.nextDirection();
+                }
+            case '$':
+                return currDirection;
+        }
+        return Direction.NORTH;
+    }
+
+    public static boolean getBeerMode(char nextCell, boolean beerMode){
+        if(nextCell == 'B'){
+            return !beerMode;
+        } else {
+            return beerMode;
+        }
+    }
+
+    public static Position getInitialPosition(char[][] map, int L, int C){
+        for(int i=0;i<L;i++){
+            for(int j=0;j<C;j++){
+                char currentCell = map[i][j];
+                if(currentCell == '@'){
+                    return new Position(i,j);
+                }
+            }
+        }
+        return new Position(-1,-1);
+    }
+
+    public static void printMap(char[][] map, int L, int C){
+        for(int i=0;i<L;i++){
+            for(int j=0;j<C;j++){
+                System.err.print(map[i][j]);
+            }
+            System.err.print('\n');
+        }
+    }
+
+    public static void printMoveList(List<Direction> moveList){
+        for(Direction d : moveList){
+            System.out.println(d.strValue);
+        }
+    }
+
+    public static void main(String args[]) {
+        Scanner in = new Scanner(System.in);
+        int L = in.nextInt();
+        int C = in.nextInt();
+        char[][] map = new char[L][C];
+        if (in.hasNextLine()) {
+            in.nextLine();
+        }
+        for (int i = 0; i < L; i++) {
+            String row = in.nextLine();
+            for(int j = 0; j < C; j++){
+                char cell = row.charAt(j);
+                map[i][j] = cell;
+            }
+        }
+
+        Position currPosition = getInitialPosition(map, L, C);
+        Direction currDirection = Direction.SOUTH;
+        boolean beerMode = false;
+        List<Direction> moveList = new LinkedList<>();
+        printMap(map,L,C);
+        while(true){
+            System.err.println("currPosition: "+currPosition.asString());
+            System.err.println("currDirection: "+currDirection.strValue);
+            Position nextTentativePosition = currPosition.move(currDirection, moveList, false);
+            System.err.println("nextTentativePosition: "+nextTentativePosition.asString());
+            char nextCell = map[nextTentativePosition.y][nextTentativePosition.x];
+            System.err.println("nextCell: "+nextCell);            
+
+            // TODO: nextDirection should spit out SOUTH,EAST,NORTH,WEST in order when in priority mode
+            // TODO: Should see finite state automatons wiki
+            // TODO: Should separate nextCell (inCharacter) from state (the rest of the variables)
+            Position nextPosition = getNextPosition(nextCell, currPosition, currDirection, beerMode, moveList);
+            Direction nextDirection = getNextDirection(nextCell, currPosition, currDirection, beerMode);
+            beerMode = getBeerMode(nextCell, beerMode);
+
+            if(nextCell == '$'){
+                break;
+            }
+
+            currPosition = nextPosition;
+            currDirection = nextDirection;
+
+            System.err.println("--------");
+        }
+        printMoveList(moveList);
+    }
+}
