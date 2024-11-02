@@ -18,13 +18,13 @@ class Position {
             moveList.add(direction);
         }
         switch(direction){
-            case Direction.SOUTH:
+            case SOUTH:
                 return this.moveSOUTH();
-            case Direction.EAST:
+            case EAST:
                 return this.moveEAST();
-            case Direction.NORTH:
+            case NORTH:
                 return this.moveNORTH();
-            case Direction.WEST:
+            case WEST:
                 return this.moveWEST();
         }
         return new Position(-1,-1);
@@ -130,11 +130,24 @@ class RobotState {
     }
 
     boolean deepEquals(RobotState other){
-        return this.position.equals(other.position) &&
-                this.direction == other.direction &&
-                this.beerMode == other.beerMode &&
-                this.priority == other.priority &&
-                this.inverterON == other.inverterON;
+        System.out.println("----RobotState.deepEquals----");
+        boolean positionEquals = this.position.equals(other.position);
+        boolean directionEquals = this.direction == other.direction;
+        boolean beermodeEquals = this.beerMode == other.beerMode;
+        boolean priorityEquals = this.priority == other.priority;
+        boolean inverterONEquals = this.inverterON == other.inverterON;
+
+        System.out.println("this.position: "+position.asString()+"    "+"other.position: "+other.position.asString());
+        System.out.println("this.direction: "+this.direction.strValue+"    "+"other.direction: "+other.direction.strValue);
+        System.out.println("this.beermode: "+this.beerMode+"    "+"other.beermode: "+other.beerMode);
+        System.out.println("this.priority: "+this.priority.strValue+"    "+"other.priority: "+other.priority.strValue);
+        System.out.println("this.inverterON: "+this.inverterON+"    "+"other.inverterON: "+other.inverterON);
+
+        return  positionEquals &&
+                directionEquals &&
+                beermodeEquals &&
+                priorityEquals &&
+                inverterONEquals;
     }
 }
 
@@ -163,14 +176,16 @@ class JourneyState{
         this.L = L;
         this.C = C;
     }
-    // TODO: change the map variable to be the hashCode from deepHashCode to compare faster
-    // TODO: test locally the LOOP case
     boolean deepEquals(JourneyState other){
-        return other.robotState.deepEquals(this.robotState) && Arrays.deepEquals(this.map,other.map);
+        boolean robotStateDeepEquals = other.robotState.deepEquals(this.robotState);
+        boolean mapDeepEquals = Arrays.deepEquals(this.map, other.map);
+        System.out.println("robotStateDeepEquals: "+robotStateDeepEquals);
+        System.out.println("mapDeepEquals: "+mapDeepEquals);
+        return  robotStateDeepEquals && mapDeepEquals;
     }
 }
 
-class Solution {
+public class Solution {
 
     public static Position teleport(Position robotPosition, char[][] map, int L, int C){
         List<Position> teleports = new ArrayList<>();
@@ -192,12 +207,6 @@ class Solution {
 
     
     public static RobotState getNextState(char nextCell, RobotState robotState, char[][] map, int L, int C){
-        System.err.println("nextCell: "+nextCell);
-        System.err.println("robotState.position: "+robotState.position.asString());
-        System.err.println("robotState.direction: "+robotState.direction.strValue);
-        System.err.println("robotState.priority: "+robotState.priority.strValue);
-        System.err.println("robotState.priority.inverterON: "+robotState.inverterON);
-        System.err.println("robotState.beerMode"+robotState.beerMode);
         switch(nextCell){
             case '@':
             case ' ':
@@ -265,11 +274,25 @@ class Solution {
     public static void printMap(char[][] map, int L, int C){
         for(int i=0;i<L;i++){
             for(int j=0;j<C;j++){
-                System.err.print(map[i][j]);
+                System.out.print(map[i][j]);
             }
-            System.err.print('\n');
+            System.out.print('\n');
         }
     }
+
+	public static void printMapWithRobot(char[][] map, int L, int C, Position robotPosition){
+         for(int i=0;i<L;i++){
+            for(int j=0;j<C;j++){
+				if(robotPosition.y == i && robotPosition.x == j){
+                    System.out.print("R");
+                }else{
+                    System.out.print(map[i][j]);
+                }
+            }
+            System.out.print('\n');
+         }
+
+	}
 
     public static void printMoveList(List<Direction> moveList){
         for(Direction d : moveList){
@@ -305,7 +328,7 @@ class Solution {
         while(true){
             Position nextTentativePosition = currentRobotState.nextTentativePosition();
             char nextCell = map[nextTentativePosition.y][nextTentativePosition.x];
-
+            printMapWithRobot(map,L,C,currentRobotState.position);
             JourneyState currentJourneyState = new JourneyState(currentRobotState, map, L, C);
             journeyStates.add(currentJourneyState);
 
@@ -324,8 +347,7 @@ class Solution {
             }
 
             currentRobotState = nextRobotState;
-
-            System.err.println("--------");
+            System.out.println("-----------------------------------------------------------------------------------");
         }
         if(!isLooping){
             printMoveList(currentRobotState.moveList);

@@ -1,0 +1,498 @@
+####
+#@ #
+#  #
+####
+####
+#R #
+#  #
+####
+----RobotState.deepEquals----
+this.position: (2,1)    other.position: (1,1)
+this.direction: SOUTH    other.direction: SOUTH
+this.beermode: false    other.beermode: false
+this.priority: OFF    other.priority: OFF
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+-----------------------------------------------------------------------------------
+####
+#@ #
+#R #
+####
+----RobotState.deepEquals----
+this.position: (2,1)    other.position: (1,1)
+this.direction: SOUTH    other.direction: SOUTH
+this.beermode: false    other.beermode: false
+this.priority: SOUTH    other.priority: OFF
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+----RobotState.deepEquals----
+this.position: (2,1)    other.position: (2,1)
+this.direction: SOUTH    other.direction: SOUTH
+this.beermode: false    other.beermode: false
+this.priority: SOUTH    other.priority: OFF
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+-----------------------------------------------------------------------------------
+####
+#@ #
+#R #
+####
+----RobotState.deepEquals----
+this.position: (2,1)    other.position: (1,1)
+this.direction: SOUTH    other.direction: SOUTH
+this.beermode: false    other.beermode: false
+this.priority: EAST    other.priority: OFF
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+----RobotState.deepEquals----
+this.position: (2,1)    other.position: (2,1)
+this.direction: SOUTH    other.direction: SOUTH
+this.beermode: false    other.beermode: false
+this.priority: EAST    other.priority: OFF
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+----RobotState.deepEquals----
+this.position: (2,1)    other.position: (2,1)
+this.direction: SOUTH    other.direction: SOUTH
+this.beermode: false    other.beermode: false
+this.priority: EAST    other.priority: SOUTH
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+-----------------------------------------------------------------------------------
+####
+#@ #
+#R #
+####
+----RobotState.deepEquals----
+this.position: (2,2)    other.position: (1,1)
+this.direction: EAST    other.direction: SOUTH
+this.beermode: false    other.beermode: false
+this.priority: OFF    other.priority: OFF
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+----RobotState.deepEquals----
+this.position: (2,2)    other.position: (2,1)
+this.direction: EAST    other.direction: SOUTH
+this.beermode: false    other.beermode: false
+this.priority: OFF    other.priority: OFF
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+----RobotState.deepEquals----
+this.position: (2,2)    other.position: (2,1)
+this.direction: EAST    other.direction: SOUTH
+this.beermode: false    other.beermode: false
+this.priority: OFF    other.priority: SOUTH
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+----RobotState.deepEquals----
+this.position: (2,2)    other.position: (2,1)
+this.direction: EAST    other.direction: SOUTH
+this.beermode: false    other.beermode: false
+this.priority: OFF    other.priority: EAST
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+-----------------------------------------------------------------------------------
+####
+#@ #
+# R#
+####
+----RobotState.deepEquals----
+this.position: (2,2)    other.position: (1,1)
+this.direction: EAST    other.direction: SOUTH
+this.beermode: false    other.beermode: false
+this.priority: SOUTH    other.priority: OFF
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+----RobotState.deepEquals----
+this.position: (2,2)    other.position: (2,1)
+this.direction: EAST    other.direction: SOUTH
+this.beermode: false    other.beermode: false
+this.priority: SOUTH    other.priority: OFF
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+----RobotState.deepEquals----
+this.position: (2,2)    other.position: (2,1)
+this.direction: EAST    other.direction: SOUTH
+this.beermode: false    other.beermode: false
+this.priority: SOUTH    other.priority: SOUTH
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+----RobotState.deepEquals----
+this.position: (2,2)    other.position: (2,1)
+this.direction: EAST    other.direction: SOUTH
+this.beermode: false    other.beermode: false
+this.priority: SOUTH    other.priority: EAST
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+----RobotState.deepEquals----
+this.position: (2,2)    other.position: (2,2)
+this.direction: EAST    other.direction: EAST
+this.beermode: false    other.beermode: false
+this.priority: SOUTH    other.priority: OFF
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+-----------------------------------------------------------------------------------
+####
+#@ #
+# R#
+####
+----RobotState.deepEquals----
+this.position: (2,2)    other.position: (1,1)
+this.direction: EAST    other.direction: SOUTH
+this.beermode: false    other.beermode: false
+this.priority: EAST    other.priority: OFF
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+----RobotState.deepEquals----
+this.position: (2,2)    other.position: (2,1)
+this.direction: EAST    other.direction: SOUTH
+this.beermode: false    other.beermode: false
+this.priority: EAST    other.priority: OFF
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+----RobotState.deepEquals----
+this.position: (2,2)    other.position: (2,1)
+this.direction: EAST    other.direction: SOUTH
+this.beermode: false    other.beermode: false
+this.priority: EAST    other.priority: SOUTH
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+----RobotState.deepEquals----
+this.position: (2,2)    other.position: (2,1)
+this.direction: EAST    other.direction: SOUTH
+this.beermode: false    other.beermode: false
+this.priority: EAST    other.priority: EAST
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+----RobotState.deepEquals----
+this.position: (2,2)    other.position: (2,2)
+this.direction: EAST    other.direction: EAST
+this.beermode: false    other.beermode: false
+this.priority: EAST    other.priority: OFF
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+----RobotState.deepEquals----
+this.position: (2,2)    other.position: (2,2)
+this.direction: EAST    other.direction: EAST
+this.beermode: false    other.beermode: false
+this.priority: EAST    other.priority: SOUTH
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+-----------------------------------------------------------------------------------
+####
+#@ #
+# R#
+####
+----RobotState.deepEquals----
+this.position: (2,2)    other.position: (1,1)
+this.direction: EAST    other.direction: SOUTH
+this.beermode: false    other.beermode: false
+this.priority: NORTH    other.priority: OFF
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+----RobotState.deepEquals----
+this.position: (2,2)    other.position: (2,1)
+this.direction: EAST    other.direction: SOUTH
+this.beermode: false    other.beermode: false
+this.priority: NORTH    other.priority: OFF
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+----RobotState.deepEquals----
+this.position: (2,2)    other.position: (2,1)
+this.direction: EAST    other.direction: SOUTH
+this.beermode: false    other.beermode: false
+this.priority: NORTH    other.priority: SOUTH
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+----RobotState.deepEquals----
+this.position: (2,2)    other.position: (2,1)
+this.direction: EAST    other.direction: SOUTH
+this.beermode: false    other.beermode: false
+this.priority: NORTH    other.priority: EAST
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+----RobotState.deepEquals----
+this.position: (2,2)    other.position: (2,2)
+this.direction: EAST    other.direction: EAST
+this.beermode: false    other.beermode: false
+this.priority: NORTH    other.priority: OFF
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+----RobotState.deepEquals----
+this.position: (2,2)    other.position: (2,2)
+this.direction: EAST    other.direction: EAST
+this.beermode: false    other.beermode: false
+this.priority: NORTH    other.priority: SOUTH
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+----RobotState.deepEquals----
+this.position: (2,2)    other.position: (2,2)
+this.direction: EAST    other.direction: EAST
+this.beermode: false    other.beermode: false
+this.priority: NORTH    other.priority: EAST
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+-----------------------------------------------------------------------------------
+####
+#@ #
+# R#
+####
+----RobotState.deepEquals----
+this.position: (1,2)    other.position: (1,1)
+this.direction: NORTH    other.direction: SOUTH
+this.beermode: false    other.beermode: false
+this.priority: OFF    other.priority: OFF
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+----RobotState.deepEquals----
+this.position: (1,2)    other.position: (2,1)
+this.direction: NORTH    other.direction: SOUTH
+this.beermode: false    other.beermode: false
+this.priority: OFF    other.priority: OFF
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+----RobotState.deepEquals----
+this.position: (1,2)    other.position: (2,1)
+this.direction: NORTH    other.direction: SOUTH
+this.beermode: false    other.beermode: false
+this.priority: OFF    other.priority: SOUTH
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+----RobotState.deepEquals----
+this.position: (1,2)    other.position: (2,1)
+this.direction: NORTH    other.direction: SOUTH
+this.beermode: false    other.beermode: false
+this.priority: OFF    other.priority: EAST
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+----RobotState.deepEquals----
+this.position: (1,2)    other.position: (2,2)
+this.direction: NORTH    other.direction: EAST
+this.beermode: false    other.beermode: false
+this.priority: OFF    other.priority: OFF
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+----RobotState.deepEquals----
+this.position: (1,2)    other.position: (2,2)
+this.direction: NORTH    other.direction: EAST
+this.beermode: false    other.beermode: false
+this.priority: OFF    other.priority: SOUTH
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+----RobotState.deepEquals----
+this.position: (1,2)    other.position: (2,2)
+this.direction: NORTH    other.direction: EAST
+this.beermode: false    other.beermode: false
+this.priority: OFF    other.priority: EAST
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+----RobotState.deepEquals----
+this.position: (1,2)    other.position: (2,2)
+this.direction: NORTH    other.direction: EAST
+this.beermode: false    other.beermode: false
+this.priority: OFF    other.priority: NORTH
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+-----------------------------------------------------------------------------------
+####
+#@R#
+#  #
+####
+----RobotState.deepEquals----
+this.position: (1,2)    other.position: (1,1)
+this.direction: NORTH    other.direction: SOUTH
+this.beermode: false    other.beermode: false
+this.priority: SOUTH    other.priority: OFF
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+----RobotState.deepEquals----
+this.position: (1,2)    other.position: (2,1)
+this.direction: NORTH    other.direction: SOUTH
+this.beermode: false    other.beermode: false
+this.priority: SOUTH    other.priority: OFF
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+----RobotState.deepEquals----
+this.position: (1,2)    other.position: (2,1)
+this.direction: NORTH    other.direction: SOUTH
+this.beermode: false    other.beermode: false
+this.priority: SOUTH    other.priority: SOUTH
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+----RobotState.deepEquals----
+this.position: (1,2)    other.position: (2,1)
+this.direction: NORTH    other.direction: SOUTH
+this.beermode: false    other.beermode: false
+this.priority: SOUTH    other.priority: EAST
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+----RobotState.deepEquals----
+this.position: (1,2)    other.position: (2,2)
+this.direction: NORTH    other.direction: EAST
+this.beermode: false    other.beermode: false
+this.priority: SOUTH    other.priority: OFF
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+----RobotState.deepEquals----
+this.position: (1,2)    other.position: (2,2)
+this.direction: NORTH    other.direction: EAST
+this.beermode: false    other.beermode: false
+this.priority: SOUTH    other.priority: SOUTH
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+----RobotState.deepEquals----
+this.position: (1,2)    other.position: (2,2)
+this.direction: NORTH    other.direction: EAST
+this.beermode: false    other.beermode: false
+this.priority: SOUTH    other.priority: EAST
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+----RobotState.deepEquals----
+this.position: (1,2)    other.position: (2,2)
+this.direction: NORTH    other.direction: EAST
+this.beermode: false    other.beermode: false
+this.priority: SOUTH    other.priority: NORTH
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+----RobotState.deepEquals----
+this.position: (1,2)    other.position: (1,2)
+this.direction: NORTH    other.direction: NORTH
+this.beermode: false    other.beermode: false
+this.priority: SOUTH    other.priority: OFF
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+-----------------------------------------------------------------------------------
+####
+#@R#
+#  #
+####
+----RobotState.deepEquals----
+this.position: (2,2)    other.position: (1,1)
+this.direction: SOUTH    other.direction: SOUTH
+this.beermode: false    other.beermode: false
+this.priority: OFF    other.priority: OFF
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+----RobotState.deepEquals----
+this.position: (2,2)    other.position: (2,1)
+this.direction: SOUTH    other.direction: SOUTH
+this.beermode: false    other.beermode: false
+this.priority: OFF    other.priority: OFF
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+----RobotState.deepEquals----
+this.position: (2,2)    other.position: (2,1)
+this.direction: SOUTH    other.direction: SOUTH
+this.beermode: false    other.beermode: false
+this.priority: OFF    other.priority: SOUTH
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+----RobotState.deepEquals----
+this.position: (2,2)    other.position: (2,1)
+this.direction: SOUTH    other.direction: SOUTH
+this.beermode: false    other.beermode: false
+this.priority: OFF    other.priority: EAST
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+----RobotState.deepEquals----
+this.position: (2,2)    other.position: (2,2)
+this.direction: SOUTH    other.direction: EAST
+this.beermode: false    other.beermode: false
+this.priority: OFF    other.priority: OFF
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+----RobotState.deepEquals----
+this.position: (2,2)    other.position: (2,2)
+this.direction: SOUTH    other.direction: EAST
+this.beermode: false    other.beermode: false
+this.priority: OFF    other.priority: SOUTH
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+----RobotState.deepEquals----
+this.position: (2,2)    other.position: (2,2)
+this.direction: SOUTH    other.direction: EAST
+this.beermode: false    other.beermode: false
+this.priority: OFF    other.priority: EAST
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+----RobotState.deepEquals----
+this.position: (2,2)    other.position: (2,2)
+this.direction: SOUTH    other.direction: EAST
+this.beermode: false    other.beermode: false
+this.priority: OFF    other.priority: NORTH
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+----RobotState.deepEquals----
+this.position: (2,2)    other.position: (1,2)
+this.direction: SOUTH    other.direction: NORTH
+this.beermode: false    other.beermode: false
+this.priority: OFF    other.priority: OFF
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+----RobotState.deepEquals----
+this.position: (2,2)    other.position: (1,2)
+this.direction: SOUTH    other.direction: NORTH
+this.beermode: false    other.beermode: false
+this.priority: OFF    other.priority: SOUTH
+this.inverterON: false    other.inverterON: false
+robotStateDeepEquals: false
+mapDeepEquals: true
+-----------------------------------------------------------------------------------
+SOUTH
+EAST
+NORTH
+SOUTH
