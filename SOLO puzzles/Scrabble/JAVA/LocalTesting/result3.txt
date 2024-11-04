@@ -1,0 +1,6 @@
+validWords: 
+[testing, testing, setting, setting, testing, tin, tin, tin, tin, tin, tin, tin, tin, set, set, set, set, tin, tin, tin, tin, set, set, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, set, set, set, set, tin, tin, tin, tin, set, set, set, set, set, set, set, set, test, test, test, set, set, set, set, test, test, test, set, set, set, set, set, set, set, set, test, test, test, set, set, set, set, test, test, test, set, set, tin, tin, tin, tin, set, set, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, tin, set, set, set, set, test, test, test, set, set, set, set, test, test, test, set, set]
+wordsScore: 
+{set=3, test=4, testing=8, tin=3, setting=8}
+maxScoreWord: 
+setting
