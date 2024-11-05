@@ -1,0 +1,113 @@
+import java.util.*;
+import java.io.*;
+import java.math.*;
+
+/**
+ * Auto-generated code below aims at helping you parse
+ * the standard input according to the problem statement.
+ **/
+class Solution {
+
+    public static int getScore(String word){
+        int score = 0;
+        for(int i=0;i<word.length();i++){
+            char currentChar = word.charAt(i);
+            switch(currentChar){
+                case 'e':
+                case 'a':
+                case 'i':
+                case 'o':
+                case 'n':
+                case 'r':
+                case 't':
+                case 'l':
+                case 's':
+                case 'u':
+                    score += 1;
+                    break;
+                case 'd':
+                case 'g':
+                    score += 2;
+                    break;
+                case 'b':
+                case 'c':
+                case 'm':
+                case 'p':
+                    score += 3;
+                    break;
+                case 'f':
+                case 'h':
+                case 'v':
+                case 'w':
+                case 'y':
+                    score += 4;
+                    break;
+                case 'k':
+                    score += 5;
+                    break;
+                case 'j':
+                case 'x':
+                    score += 8;
+                    break;
+                case 'q':
+                case 'z':
+                    score += 10;
+                    break;
+
+            }
+        }
+        return score;
+    }
+
+    public static Map<Character, Integer> makeAvailableLettersMap(String LETTERS){
+        Map<Character, Integer> availableLetters = new HashMap<>();
+        for(char c : LETTERS.toCharArray()){
+            int availableChar = availableLetters.getOrDefault(c, 0);
+            availableChar++;
+            availableLetters.put(c,availableChar);
+        }
+        return availableLetters;
+    }
+
+    public static boolean isViable(String word, String LETTERS){
+        Map<Character, Integer> availableLetters = makeAvailableLettersMap(LETTERS);
+        Map<Character, Integer> expendedLetters = new HashMap<>();
+        for(char c : word.toCharArray()){
+            int availableChar = availableLetters.getOrDefault(c, 0);
+            int expendedChar = expendedLetters.getOrDefault(c, 0);
+            expendedChar++;
+            if(expendedChar > availableChar){
+                return false;
+            }
+            expendedLetters.put(c, expendedChar);
+        }
+        return true;
+    }
+
+    public static void main(String args[]) {
+        Scanner in = new Scanner(System.in);
+        int N = in.nextInt();
+        if (in.hasNextLine()) {
+            in.nextLine();
+        }
+        List<String> dictionary = new ArrayList<>(N);
+        for (int i = 0; i < N; i++) {
+            String W = in.nextLine();
+            dictionary.add(W);
+        }
+        String LETTERS = in.nextLine();
+
+        String maxWord = "invalidWord";
+        int maxWordScore = 0;
+        for(String word : dictionary){
+            if(isViable(word,LETTERS)){
+                int currentScore = getScore(word);
+                if(currentScore > maxWordScore){
+                    maxWordScore = currentScore;
+                    maxWord = word;
+                }
+            }
+        }
+        System.out.println(maxWord);
+    }
+}
