@@ -11,9 +11,51 @@ class Calculation {
         this.startDay = startDay;
         this.endDay = endDay;
     }
+    public String toString(){
+        return "("+this.number+", "+this.startDay+", "+this.endDay+")";
+    }
 }
 
 public class Solution {
+
+    // Tested by hand, OK
+    private static void calculationsOverlapTest(){
+        // Should give FALSE
+        Calculation c1 = new Calculation(0,0,1);
+        Calculation c2 = new Calculation(1,2,3);
+        boolean calculationsOverlap1 = calculationsOverlap(c1,c2);
+        System.out.println("c1: "+c1.toString());
+        System.out.println("c2: "+c2.toString());
+        System.out.println("calculationsOverlap C1_C2: "+calculationsOverlap1);
+        Calculation c3 = new Calculation(2,4,5);
+        boolean calculationsOverlap2 = calculationsOverlap(c2,c3);
+        System.out.println("c2: "+c2.toString());
+        System.out.println("c3: "+c3.toString());
+        System.out.println("calculationsOverlap C2_C3: "+calculationsOverlap2);
+
+        // Should give TRUE
+        Calculation c4 = new Calculation(3,2,4);
+        Calculation c5 = new Calculation(4,1,2);
+        Calculation c6 = new Calculation(5,3,5);
+        Calculation c7 = new Calculation(6,4,5);
+        Calculation c8 = new Calculation(7,1,5);
+        boolean calculationsOverlapC4_C5 = calculationsOverlap(c4,c5);
+        System.out.println("c4: "+c4.toString());
+        System.out.println("c5: "+c5.toString());
+        System.out.println("calculationsOverlap C4_C5: "+calculationsOverlapC4_C5);
+        boolean calculationsOverlapC4_C6 = calculationsOverlap(c4,c6);
+        System.out.println("c4: "+c4.toString());
+        System.out.println("c6: "+c6.toString());
+        System.out.println("calculationsOverlap C4_C6: "+calculationsOverlapC4_C6);
+        boolean calculationsOverlapC4_C7 = calculationsOverlap(c4,c7);
+        System.out.println("c4: "+c4.toString());
+        System.out.println("c7: "+c7.toString());
+        System.out.println("calculationsOverlap C4_C7: "+calculationsOverlapC4_C7);
+        boolean calculationsOverlapC4_C8 = calculationsOverlap(c4,c8);
+        System.out.println("c4: "+c4.toString());
+        System.out.println("c8: "+c8.toString());
+        System.out.println("calculationsOverlap C4_C8: "+calculationsOverlapC4_C8);
+    }
 
     private static List<Integer> makeInitialAvailableNodeList(int N){
         List<Integer> res = new LinkedList<>();
@@ -87,8 +129,9 @@ public class Solution {
         for (int i = 0; i < N; i++) {
             int J = in.nextInt();
             int D = in.nextInt();
-            Calculation calculation = new Calculation(i,J,J+D);
+            Calculation calculation = new Calculation(i,J,J+D-1);
             calculations.add(calculation);
+            System.out.println(calculation.toString());
         }
         boolean[][] graph = new boolean[N][N];
         for(int i=0;i<N;i++){
@@ -103,13 +146,11 @@ public class Solution {
                 }
             }
         }
-        // TODO make tests for the translation from Intervals to adjacent nodes
-        // TODO test calculationsOverlap by hand
+        //System.out.println("graph: "+Arrays.deepToString(graph));
+
         List<Integer> availableNodes = makeInitialAvailableNodeList(N);
         List<Integer> selectedNodes = new LinkedList<>();
         int res = calculateMaxGraphSize(availableNodes, selectedNodes, graph);
         System.out.println("maxGraphSize: "+res);
-        //List<Integer> coloredAvailableNodes = colourAdjacents(availableNodes,5,graph);
-        //System.out.println("coloredAvailableNodes "+coloredAvailableNodes);
     }
 }
