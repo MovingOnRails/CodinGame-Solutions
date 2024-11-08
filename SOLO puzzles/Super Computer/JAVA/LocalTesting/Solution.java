@@ -65,11 +65,20 @@ public class Solution {
         return res;
     }
 
+    private static boolean isAdjacent(List<Integer> adjacentNodes, Integer node){
+        for(Integer a : adjacentNodes){
+            if(a.equals(node)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     // Tested by hand
-    private static List<Integer> colourAdjacents(List<Integer> availableNodes, Integer currentNode, boolean[][] graph){
+    private static List<Integer> colourAdjacents(List<Integer> availableNodes, Integer currentNode, List<Integer>[] graph){
         List<Integer> res = new LinkedList<>(availableNodes);
         for(int j=0;j<graph.length;j++){
-            boolean isAdjacent = graph[currentNode][j];
+            boolean isAdjacent = isAdjacent(graph[currentNode], j);
             if(isAdjacent){
                 ListIterator it = res.listIterator();
                 while(it.hasNext()){
@@ -84,7 +93,7 @@ public class Solution {
         return res;
     }
 
-    private static int calculateMaxGraphSize(List<Integer> availableNodes,List<Integer> selectedNodes,boolean[][] graph){
+    private static int calculateMaxGraphSize(List<Integer> availableNodes,List<Integer> selectedNodes,List<Integer>[] graph){
         if(availableNodes.isEmpty()){return selectedNodes.size();}
         int maxGraphSize = selectedNodes.size();
         // We iterate over the availableNodes in order of apparition
@@ -131,17 +140,19 @@ public class Solution {
             int D = in.nextInt();
             Calculation calculation = new Calculation(i,J,J+D-1);
             calculations.add(calculation);
-            //System.err.println(calculation.toString());
+            //System.out.println(calculation.toString());
         }
-        boolean[][] graph = new boolean[N][N];
+        List<Integer>[] graph = new LinkedList[N];
+        for(int i=0;i<N;i++){
+            graph[i] = new LinkedList<>();
+        }
         for(int i=0;i<N;i++){
             Calculation calculationI = findCalculationWithNumber(i,calculations);
             for(int j=0;j<N;j++){
                 Calculation calculationJ = findCalculationWithNumber(j,calculations);
                 if(i != j){
                     if(calculationsOverlap(calculationI, calculationJ)){
-                        graph[calculationI.number][calculationJ.number] = true;
-                        graph[calculationJ.number][calculationI.number] = true;
+                        graph[calculationI.number].add(calculationJ.number);
                     }
                 }
             }
