@@ -131,7 +131,7 @@ public class Solution {
             int D = in.nextInt();
             Calculation calculation = new Calculation(i,J,J+D-1);
             calculations.add(calculation);
-            System.out.println(calculation.toString());
+            //System.err.println(calculation.toString());
         }
         boolean[][] graph = new boolean[N][N];
         for(int i=0;i<N;i++){
@@ -151,6 +151,6 @@ public class Solution {
         List<Integer> availableNodes = makeInitialAvailableNodeList(N);
         List<Integer> selectedNodes = new LinkedList<>();
         int res = calculateMaxGraphSize(availableNodes, selectedNodes, graph);
-        System.out.println("maxGraphSize: "+res);
+        System.out.println(res);
     }
 }
