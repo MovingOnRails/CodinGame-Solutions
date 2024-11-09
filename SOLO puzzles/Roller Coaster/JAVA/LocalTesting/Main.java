@@ -27,12 +27,15 @@ class Solution {
             int fromIndex = index;
             boolean isFull = false;
             int currentCapacity = 0;
+            int groupsAdvanced = 0;
             while (!isFull) {
-                if (index == groups.length || currentCapacity + groups[index] > C) {
+                if(index == groups.length){index = 0;}
+                if (groupsAdvanced == groups.length || currentCapacity + groups[index] > C) {
                     isFull = true;
                 } else {
                     currentCapacity += groups[index];
                     index++;
+                    groupsAdvanced++;
                 }
             }
             int toIndex = index;
