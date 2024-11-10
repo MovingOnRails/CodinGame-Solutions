@@ -36,7 +36,8 @@ class Solution {
 
     public static int lakeSize = 0;
 
-    public static void floodFill(Coordinate coordinate, char[][] map, int[][] visited, int H, int L){
+    public static void floodFill(Coordinate coordinate, char[][] map, int[][] visited, int H, int L,
+                                 LinkedList<Coordinate> visitedCoordinates){
         if( coordinate.X < 0 || coordinate.X == L  ||
             coordinate.Y < 0 || coordinate.Y == H  ||
             map[coordinate.Y][coordinate.X] == '#' ||
@@ -44,19 +45,27 @@ class Solution {
             return;
         }
         visited[coordinate.Y][coordinate.X] = 0;
+        visitedCoordinates.add(new Coordinate(coordinate.X, coordinate.Y));
         lakeSize++;
         Coordinate oneToTheNorth = new Coordinate(coordinate.X, coordinate.Y-1);
-        floodFill(oneToTheNorth, map, visited, H, L);
+        floodFill(oneToTheNorth, map, visited, H, L, visitedCoordinates);
 
         Coordinate oneToTheSouth = new Coordinate(coordinate.X, coordinate.Y+1);
-        floodFill(oneToTheSouth, map, visited, H, L);
+        floodFill(oneToTheSouth, map, visited, H, L, visitedCoordinates);
 
         Coordinate oneToTheEast = new Coordinate(coordinate.X+1, coordinate.Y);
-        floodFill(oneToTheEast, map, visited, H, L);
+        floodFill(oneToTheEast, map, visited, H, L, visitedCoordinates);
 
         Coordinate oneToTheWest = new Coordinate(coordinate.X-1, coordinate.Y);
-        floodFill(oneToTheWest, map, visited, H, L);
+        floodFill(oneToTheWest, map, visited, H, L, visitedCoordinates);
 
+        return;
+    }
+
+    public static void fillVisitedCoordinatesWithLakeSize(int[][] visited, LinkedList<Coordinate> visitedCoordinates, int lakeSize){
+        for(Coordinate c : visitedCoordinates){
+            visited[c.Y][c.X] = lakeSize;
+        }
         return;
     }
 
@@ -67,9 +76,9 @@ class Solution {
             in = new Scanner(file);
         }
         int L = in.nextInt();
-        System.err.println(L);
+        //System.err.println(L);
         int H = in.nextInt();
-        System.err.println(H);
+        //System.err.println(H);
         if (in.hasNextLine()) {
             in.nextLine();
         }
@@ -81,29 +90,35 @@ class Solution {
                 map[i][j] = c;
             }
         }
-        printMap(map, H, L);
+        //printMap(map, H, L);
         int N = in.nextInt();
-        System.err.println(N);
+        //System.err.println(N);
         Coordinate[] coordinates = new Coordinate[N];
         for (int i = 0; i < N; i++) {
             int X = in.nextInt();
             int Y = in.nextInt();
-            System.err.print(X+" "+Y+"\n");
+            //System.err.print(X+" "+Y+"\n");
             Coordinate coordinate = new Coordinate(X, Y);
             coordinates[i] = coordinate;
         }
-        // TODO will divide the flood fill development in two parts:
-        // FIRST part: memoize the current flood fill already filled cells
-        // SECOND part: memoize for the current flood fill the lake size when it finishes
-        // (Memoize for each part of the lake, the final lake size) 
+
+        int[][] visited = new int[H][L];
+        fillVisitedWithDefaultValue(visited, -1, H, L);
         for (int i = 0; i < N; i++) {
             Coordinate coordinate = coordinates[i];
-            int[][] visited = new int[H][L];
             lakeSize = 0;
-            fillVisitedWithDefaultValue(visited, -1, H, L);
-            floodFill(coordinate, map, visited, H, L);
+            LinkedList<Coordinate> visitedCoordinates = new LinkedList<>();
+            int solution = 0;
+            if(visited[coordinate.Y][coordinate.X] != -1){
+                solution = visited[coordinate.Y][coordinate.X];
+            } else {
+                floodFill(coordinate, map, visited, H, L, visitedCoordinates);
+                fillVisitedCoordinatesWithLakeSize(visited, visitedCoordinates, lakeSize);
+                solution = lakeSize;
+            }
+
             
-            System.out.println(lakeSize);
+            System.out.println(solution);
         }
     }
 }
