@@ -18,8 +18,8 @@ class Coordinate {
 class Solution {
 
     public static void printMap(char[][] map, int H, int L){
-        for(int i=0;i<L;i++){
-            for(int j=0;j<H;j++){
+        for(int i=0;i<H;i++){
+            for(int j=0;j<L;j++){
                 System.err.print(map[i][j]);
             }
             System.err.print('\n');
@@ -37,10 +37,10 @@ class Solution {
     public static int lakeSize = 0;
 
     public static void floodFill(Coordinate coordinate, char[][] map, int[][] visited, int H, int L){
-        if(map[coordinate.Y][coordinate.X] == '#' || 
-            visited[coordinate.Y][coordinate.X] != -1 ||
-            coordinate.X < 0 || coordinate.X == L ||
-            coordinate.Y < 0 || coordinate.Y == H){
+        if( coordinate.X < 0 || coordinate.X == L  ||
+            coordinate.Y < 0 || coordinate.Y == H  ||
+            map[coordinate.Y][coordinate.X] == '#' ||
+            visited[coordinate.Y][coordinate.X] != -1){
             return;
         }
         visited[coordinate.Y][coordinate.X] = 0;
